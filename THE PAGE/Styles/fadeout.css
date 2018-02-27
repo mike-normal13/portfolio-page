@@ -1,0 +1,40 @@
+body
+{
+	background: url(../Images/Backgrounds/fadeout.png) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+	/*margin:10px 100px;*/
+}
+
+section
+{
+	padding:10px 100px ;
+	background-color: bisque;
+	background-clip: border-box;
+	opacity: 0.6;
+}
+
+.section-top{	border-radius: 25px 25px 0px 0px;	}
+
+pre
+{
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	padding: 0px, 10px;
+	background-color: lightgray;
+	border-radius: 25px 25px 25px 25px;
+	opacity: 1;
+	box-shadow: 4px 4px 4px #aaa;
+}
+
+.section-bottom{	border-radius: 0px 0px 25px 25px;	}
+
+.document{	color: teal;	}
+.comment{	color: green;	}
+.declaration{	color: magenta;	}
+.type{	color:blue;	}
+.literal{	color:purple;	}
+.name{	color:olive;	}
+.string{	color:red;	}

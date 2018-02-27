@@ -1,0 +1,17 @@
+body
+{
+    background: url(../Images/Backgrounds/posts.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+}
+
+section
+{
+	padding:10px 100px ;
+	background-color: bisque;
+	background-clip: border-box;
+    opacity: 0.6;
+    border-radius: 25px 25px 25px 25px;
+}

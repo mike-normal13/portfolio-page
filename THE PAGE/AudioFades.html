@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+
+<!-- TODOs
+
+
+-->
+
+<head>
+	<title>Budge Blog</title>
+	<!- is there a way to set meta info for search keywords??? ->
+
+     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"> 
+     <link rel="stylesheet" type="text/css" href="Styles/master.css">
+    <link rel="stylesheet" type="text/css" href="Styles/fadeout.css">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+<header class="audio-fades-header">
+    <nav>       <!-- we need a style defined for this element type in a stylesheet -->
+        home
+    </nav>
+    <h1>Applying Instant Audio Fades In Swift With AVFoundation</h1>
+    need a date
+</header>
+
+<hr>
+
+<section class="section-top">
+    <p><h3>Intro</h3></p>
+       An audio sampler that produces loud clicks whenever a sound is stopped from playing is unusable in a performance context. 
+       In fact, 
+       there are two things in my estimation that are absolutely necessary for a sampler to be a viable performance tool: 
+       low-latency audio playback, and instant volume fade-out applied whenever a sound is halted from playing. 
+       iOS provides low-latency playback of audio files which is configurable with a few lines of code. 
+       This makes it an ideal candidate if one were to implement a sampler app for a smart phone. 
+       However, applying real-time audio fades is not something readily available in iOS. 
+       I will outline a hard fought solution I developed to this problem.
+</section>
+
+<section>
+    <p><h3>Audio File Playback With AVFoundation</h3></p>
+
+    <p>
+	   If you are trying to write a Sampler App for iOS in Swift, you have two options as far low-latency audio file playback is concerned. The first option which I will not be touching upon is to use the AVAudioUnitSampler class. A short article on this topic can be found 
+
+	   <a href="http://www.tmroyal.com/using-avaudiounitsampler-in-swift.html">here</a>.
+	
+	   From reading the documentation, I personally do not like the way the AVAudioUnitSampler is set up, so I have never actually implemented any code with it. I have heard rumors of people implementing instant audio fades with AVAudioUnitSampler through an ADSR parameter.
+    </p>
+
+
+    <p>
+	   The second option for low latency audio playback in AVFoundation is the AVAudioPlayerNode class, not to be confused with the AVAudioPlayer class. While the AVAudioPlayer class does appear to provide a painless way to apply fading 
+
+	   <a href="https://www.ioscreator.com/tutorials/fade-in-fade-out-music-ios-tutorial-ios10"> in and out</a>,
+
+	   it does not provide low latency playback.
+    </p>
+</section>
+
+<section>
+    <p><h3>The Solution</h3></p>
+
+    <p>
+	   First, the AVAudioPlayerNode class has a volume property, as far as I can tell adjusting it has no effect in playback volume whatsoever. However, the AVAudioMixerNode&apos;s volume property does work.
+    </p>
+
+    <p>
+	   With that in mind, you can connect an AVAudioPlayer node to an AVAudioMixerNode. Have an interval set up that will function as your fade time, and have an array of values which will correspond to the audio fade. I ended up using a linear fade, it works fine. Then, when you call stop, fire a timer that will adjust the AVAudioMixerNode&apos;s volume property N number of times, N being the length of you fade array. You get the point, it is a simple solution, I just could not find anybody on line describing it so here it is!
+    </p>
+
+    <p>
+	   Let me show some code. The class I&apos;ll show is my MasterSoundMod class which contains the AVAudioMixerNodes. The MasterSoundMod class also contains an array of my PadModel() class which is my wrapper of the AVAudioPlayerNode.
+    </p>
+
+
+    <p><h4>Fields</h4></p>
+
+<p>
+	<pre>
+		<code>	
+	<span class="document">/** represents _nBanks X _nPads */</span>
+	<span class="declaration">private var</span> _soundCollection: [[<span class="type">PadModel</span>?]?]! = [];
+
+	<span class="document">/** every pad will have its own mixer,
+            i.e. each of the player nodes associtaed with a pad will connect to a mixer node,
+            thereby making it easier to adjust settings such as volume for all player nodes at once.
+            each pad mixer node will be attached to the mixer node assigned to each bank */</span>
+	<span class="declaration">private var</span> _padMixerArray: [[<span class="type">AVAudioMixerNode</span>?]] = [];
+
+	<span class="declaration">private var</span> _fadeOutTimerInterval = <span class="literal">0.001</span>;
+
+	<span class="declaration">private var</span> _fadeCountArray: [[<span class="type">Int</span>]] = [];
+	<span class="declaration">private var</span> _fadeScalarArray: [[<span class="type">Double</span>]] = [];
+
+	<span class="document">/** used to apply instant fade out when a pad is released by the user */</span>
+	<span class="declaration">private var</span> _releaseTimerArray: [[<span class="type">Timer</span>?]] = [];
+
+		</code>
+	</pre>
+</p>
+
+
+<p><h4>Stop() Method</h4></p>
+
+<p>
+	<pre>
+		<code>
+	<span class="document">//** stop playing the pad corresponding to the bank and pad number */</span>
+    <span class="declaration">func</span> stop(bank: <span class="type">Int</span>, pad: <span class="type">Int</span>, preview: <span class="type">Bool</span>)
+    {
+        <span class="name">_releaseTimerArray</span>[bank][pad] = <span class="type">Timer</span>()
+        
+        <span class="comment">// without this, the mixer node's volume will stay at zero once the fade completes.</span>
+        <span class="declaration">var</span> preFadeVolume: <span class="type">Float</span> = <span class="literal">0.0</span>;
+        
+        <span class="comment">// _soundCollection is a 2d array of my PadModel class</span>
+        preFadeVolume = (<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">volume</span>)!
+        
+                
+        <span class="declaration">if</span>((<span class="name">_releaseTimerArray</span>[bank][pad] == <span class="declaration"> nil</span>))
+        {
+            <span class="name">_releaseTimerArray</span>[bank][pad] = <span class="name">Timer</span>.<span class="name">scheduledTimer</span>(timeInterval: <span class="name">_fadeOutTimerInterval</span>, 
+            						target: <span class="declaration">self</span>, 
+            						selector: <span class="declaration">#selector</span>(<span class="declaration">self</span>.fadeout(timer:)), 
+            						userInfo: (bank, pad, preFadeVolume, preview), 
+            						repeats: <span class="declaration">true</span>);
+        }
+        
+        <span class="comment">// Don't forget to invalidate your timers</span>
+        <span class="declaration">if</span>(<span class="name">_soundCollection</span>[bank]![pad] != <span class="declaration">nil</span>)
+        {
+            <span class="name">_volumeDataTimerArray</span>[bank][pad]?.<span class="type">invalidate</span>();
+            <span class="name">_volumeDataTimerArray</span>[bank][pad] = <span class="declaration">nil</span>;            
+        }
+    }
+		</code>
+	</pre>
+</p>
+
+<p><h4>Method Fired By Timer</h4></p>
+
+<p>
+	<pre>
+		<code>
+    <span class="document">/** apply a real time fade out if the pad is stopped before its set endpoint
+            this method is used by a timer.*/</span>
+    <span class="declaration">@objc func</span> fadeout(timer: <span class="type">Timer</span>)
+    {
+         <span class="comment">// (bankNumber, padNumber, preFadeVolume, preview)</span>
+        <span class="declaration">let</span> userInfo = timer.<span class="type">userInfo</span> <span class="declaration">as</span>! (<span class="type">Int</span>, <span class="type">Int</span>, <span class="type">Float</span>, <span class="type">Bool</span>);
+        
+        <span class="comment">// linear fade</span>
+        <span class="name">_fadeScalarArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] -= <span class="name">_fadeDecrement</span>; <span class="comment">// 1/32</span>
+    
+        <span class="name">_padMixerArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>]?.<span class="type">volume</span> = 
+            <span class="type">Float</span>(<span class="name">_fadeScalarArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>]) * userInfo.<span class="literal">2</span>;
+        
+        <span class="declaration">if</span>(<span class="name">_fadeCountArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] == <span class="name">_fadeSpan</span>)
+        {
+            <span class="declaration">if</span>(<span class="name">_soundCollection</span>[userInfo.<span class="literal">0</span>]![userInfo.<span class="literal">1</span>]?.<span class="name">isPlaying</span>)!
+            {
+                <span class="comment">// stop PadModel's player node that is currently playing</span>
+                <span class="name">_soundCollection</span>[userInfo.<span class="literal">0</span>]![userInfo.<span class="literal">1</span>]!.<span class="name">stop</span>(preview: userInfo.<span class="literal">3</span>);
+            }
+            
+            <span class="comment">//  reset the mixer node to volume prior to the fade</span>
+            <span class="name">_padMixerArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>]?.<span class="type">volume</span> = 
+                (<span class="name">_soundCollection</span>[userInfo.<span class="literal">0</span>]![userInfo.<span class="literal">1</span>]?.<span class="type">volume</span>)!;
+            
+            <span class="name">_fadeCountArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] = <span class="literal">0</span>;
+            <span class="name">_fadeScalarArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] = <span class="literal">1.0</span>;
+            
+            timer.<span class="type">invalidate</span>();
+            
+            <span class="name">_releaseTimerArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] = <span class="declaration">nil</span>;
+        }
+        
+        <span class="name">_fadeCountArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] += <span class="literal">1</span>;
+    }
+		</code>
+	</pre>
+</p>
+
+<p><h4>Connecting The Sound Graph</h4></p>
+
+<p>
+	<pre>
+		<code>
+    <span class="document">/** connect each pad in the pad array to a mixer node,
+            and then connect each mixer node for each pad to a single mixer node */</span>
+    <span class="declaration">func</span> connectPadToMixer(bank: <span class="type">Int</span>, pad: <span class="type">Int</span>)
+    {
+        <span class="declaration">if</span>(<span class="name">_outputFormat</span>.<span class="type">channelCount</span> == <span class="literal">0</span> && <span class="name">_outputFormat</span>.<span class="type">sampleRate</span> == <span class="literal">0.0</span>)
+        {
+            <span class="declaration">if</span>(<span class="name">_debugFlag</span>){ <span class="type">print</span>(<span class="string">"connectPadToMixer returned early due to invalid _outputFormat"</span>);   }
+            <span class="declaration">return</span>;
+        }
+        <span class="comment">// initialize pad's mixer node</span>
+        <span class="declaration">if</span>(<span class="name">_padMixerArray</span>[bank][pad] == <span class="declaration">nil</span>){   <span class="name">_padMixerArray</span>[bank][pad] = <span class="type">AVAudioMixerNode()</span>; }
+        
+        <span class="name">_engine</span>.attach(<span class="name">_padMixerArray</span>[bank][pad]!)
+        
+        <span class="declaration">if</span>(<span class="name">_soundCollection</span>[bank]![pad] != <span class="declaration">nil</span>)
+        {
+            <span class="comment">// we need to connect both the player nodes and varispeed nodes to the sound graph
+            //  with formats based upon the format of the file loaded into the player nodes</span>
+            <span class="declaration">let</span> tempPadSampleRate = <span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">file</span>.<span class="type">fileFormat</span>.<span class="type">sampleRate</span>;
+            <span class="declaration">let</span> tempFileChannelCount = <span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">file</span>.<span class="type">fileFormat</span>.<span class="type">channelCount</span>;
+            
+            <span class="declaration">for</span> i <span class="declaration">in</span> <span class="literal">0</span> ..< (<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">playerNodeArrayCount</span>)!
+            {
+                <span class="comment">// attach and connect varispeed nodes to the pad mixer</span>
+                <span class="name">_engine</span>.<span class="type">attach</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">varispeedNodeArray</span>[i])!);
+                <span class="name">_engine</span>.<span class="type">attach</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">playerNodeArray</span>[i])!);
+                <span class="name">_engine</span>.<span class="type">connect</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">varispeedNodeArray</span>[i])!, 
+                		to: <span class="name">_padMixerArray</span>[bank][pad]!, 
+                		format: <span class="type">AVAudioFormat</span>(standardFormatWithSampleRate: tempPadSampleRate!, 
+                						channels: tempFileChannelCount!));
+                
+                <span class="name">_engine</span>.<span class="type">connect</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">playerNodeArray</span>[i])!, 
+                		to: (<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">varispeedNodeArray</span>[i])!, 
+                		format: <span class="type">AVAudioFormat</span>(standardFormatWithSampleRate: tempPadSampleRate!, 
+                						channels: tempFileChannelCount!));
+            }
+        }
+        
+        <span class="name">_engine</span>.<span class="type">connect</span>(<span class="name">_padMixerArray</span>[bank][pad]!, to: <span class="name">_engine</span>.<span class="type">mainMixerNode</span>, format: <span class="name">_outputFormat</span>);
+    }
+		</code>
+	</pre>
+</p>
+
+<p><h4>Adjusting Your App's Audio Latency</h4></p>
+
+<p>
+	<pre>
+		<code>
+    <span class="declaration">var</span> _audioSession = <span class="type">AVAudioSession</span>.<span class="type">sharedInstance</span>()
+
+    <span class="comment">//http://stackoverflow.com/questions/34680007/answer/submit#</span>
+    <span class="declaration">do</span>
+    {
+        <span class="declaration">try</span> <span class="name">_audioSession</span>.<span class="type">setPreferredIOBufferDuration</span>(<span class="literal">0.006</span>); <span class="comment">// 0.006 may not work so well on older devices, 
+        							//works fine on my 6s.</span>
+    }
+    <span class="declaration">catch</span>
+    {
+        <span class="type">print</span>(error.localizedDescription);
+    }
+		</code>
+	</pre>
+</p>
+
+
+	I have the code snippet above reside in my AppDelegate.
+
+</section>
+
+<section>
+    <p><h3>Some Files Click More Than Others</h3></p>
+
+    
+    Now I will say that some audio files I&apos;ve loaded into my Sampler App seem to be &quot;clickier&quot; than others, in that the applied fade will not always completely cancel a stop click depending on where I stop playing the file. But I&apos;ve really only seen this happen maybe with two files out of around a hundred I&apos;ve tested on my app.
+    
+</section>
+
+<section>
+    <p><h3>Look Into AudioKit!</h3></p>
+
+    
+    I&apos;m going to end talking about AudioKit. Speaking of third-party libraries, if you have spent any time trying to write an audio application for iOS, the chances that you have not come across
+
+	<a href="http://audiokit.io/">AudioKit</a>
+  
+    are very slim. Indeed this is one place I looked to solve this problem. The team at AudioKit has proven time and time again an invaluable resource for audio development in the realm of iOS. If you are curious about how to write to an audio buffer you can look at this
+	
+	<a href="https://github.com/AudioKit/AudioKit/blob/master/AudioKit/Common/Nodes/Playback/Player/AKPlayer.swift">File</a>. As of 2/21/2018 I just realized that the AudioKit AKPlayer class does appear to have instant fades. It did not seem to have them about year ago. Anyway you can look at the updateBuffer() and startFade() methods in the previous link to see how the team at AudioKit are handling their business. 
+    
+</section>
+
+<section class="section-bottom">
+    <p><h3>Fades Need To Be Placed At The Start As Well As The End</h3></p>
+
+    <p>
+	   Don&apos;t forget, if proper adjustments are not made, a sampler can just as easily click when it starts playing a sound clip vs when it stops playing a sound clip. This is especially true if you&apos;ve incorporated being able to adjust the start and end points of you sound file. In eliminating a front-end click it makes more sense apply the fade directly to the audio buffer.
+    </p>
+</section>
+
+<hr>
+
+<footer class="audio-fades-footer">
+    <nav>
+        home
+    </nav>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+header
+{
+	
+}
+
+body
+{
+	background: url(../Images/Backgrounds/index.png) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+}
+
+.title-container
+{
+	background-color: lightyellow;	
+	max-width: 500px;
+	margin: auto;
+}
+
+.budge-title, .budge-sub1, .budge-sub2, .catagory-box
+{
+	text-align: center;
+}
+
+.budge-title{	font-size: 325%;	}
+.budge-sub1{	font-size: 250%;	}
+.budge-sub2{	font-size: 200%;	}
+
+.catagory-container
+{
+	display: -webkit-box;
+	-webkit-box-align: stretch;	/* stretches to fill empty vertical space */
+	-webkit-box-pack: justify;
+	margin: 10px;
+	height: 300px;
+}
+
+.catagory-box
+{
+	-webkit-box-flex: 1;
+	margin: 5px;
+	width: 100%;				/* enforces equal widths */
+	background-color: bisque;
+	line-height: 300px;
+	font-size: 300%;
+}
+
+.title-container, .catagory-container
+{
+	opacity: 0.7;
+}
+
+.title-container, .catagory-box
+{
+	border-radius: 25px;
+	text-shadow: 4px 4px 4px #aaa;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;	
+}
