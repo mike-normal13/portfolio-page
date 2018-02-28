@@ -6,6 +6,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"> 
 	<link rel="stylesheet" type="text/css" href="Styles/master.css">
 	<link rel="stylesheet" type="text/css" href="Styles/index.css">
+	<script src="Scripts/index.js"></script>
 </head>
 
 <body>
@@ -19,14 +20,22 @@
 		</div>
 	</header>
 
-	<div class="catagory-container">
-		<p class="catagory-box">
+	<div class="catagory-container" >
+		<p id="postPad" class="catagory-box" 
+		onmouseover="this.style.background='BurlyWood'; this.style.opacity='1'" 
+		onmouseout="this.style.background='bisque'; this.style.opacity='0.9'"
+		onmouseup="postClick()">
+			<a href="posts.html"></a>
 			Posts
 		</p>
-		<p class="catagory-box">
+		<p id="tunesPad" class="catagory-box" 
+		onmouseover="this.style.background='BurlyWood'; this.style.opacity='1'" 
+		onmouseout="this.style.background='bisque'; this.style.opacity='0.9'">
 			Tunes
 		</p>
-		<p class="catagory-box">
+		<p id="resumePad" class="catagory-box" 
+		onmouseover="this.style.background='BurlyWood'; this.style.opacity='1'" 
+		onmouseout="this.style.background='bisque'; this.style.opacity='0.9'">
 			Resume
 		</p>
 	</div>
