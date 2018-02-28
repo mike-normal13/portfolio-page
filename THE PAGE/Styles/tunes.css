@@ -1,0 +1,25 @@
+body
+{
+	background: url(../Images/Backgrounds/tunes.png) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+	/*margin:10px 100px;*/
+}
+
+/* this is duplicated from the posts.css file */
+section
+{
+	padding:10px 100px ;
+	background-color: bisque;
+	background-clip: border-box;
+    opacity: 0.8;
+    border-radius: 25px 25px 25px 25px;
+}
+
+iframe
+{
+    opacity: 1;
+    text-shadow: 4px 4px 4px #aaa;
+}

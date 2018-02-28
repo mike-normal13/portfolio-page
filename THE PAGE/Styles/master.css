@@ -3,7 +3,7 @@ body
 	margin:10px 100px;
 }
 
-header.audio-fades-header, footer.audio-fades-footer, header.posts-header, footer.posts-footer
+header.audio-fades-header, footer.audio-fades-footer, header.posts-header, footer.posts-footer, header.tunes-header, footer.tunes-footer
 {
 	/* this works but the content under neat does not clip to it */
 	/*position: fixed;*/
