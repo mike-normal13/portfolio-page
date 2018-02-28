@@ -19,10 +19,10 @@
 
 <header class="audio-fades-header">
     <nav>       <!-- we need a style defined for this element type in a stylesheet -->
-        home
+        <a href="index.html">home</a>
     </nav>
     <h1>Applying Instant Audio Fades In Swift With AVFoundation</h1>
-    need a date
+    2/28/2018
 </header>
 
 <hr>
@@ -68,7 +68,16 @@
     </p>
 
     <p>
-	   With that in mind, you can connect an AVAudioPlayer node to an AVAudioMixerNode. Have an interval set up that will function as your fade time, and have an array of values which will correspond to the audio fade. I ended up using a linear fade, it works fine. Then, when you call stop, fire a timer that will adjust the AVAudioMixerNode&apos;s volume property N number of times, N being the length of you fade array. You get the point, it is a simple solution, I just could not find anybody on line describing it so here it is!
+       With that in mind, 
+       you can connect an AVAudioPlayer node to an AVAudioMixerNode. 
+       Have an interval set up that will function as your fade time, 
+       and have an array of values which will correspond to the audio fade. 
+       I ended up using a linear fade, it works fine. 
+       Then, when you call stop, 
+       fire a timer that will adjust the AVAudioMixerNode&apos;s volume property N number of times, 
+       N being the length of you fade array. 
+       You get the point, it is a simple solution, 
+       I just could not find anybody on line describing it so here it is!
     </p>
 
     <p>
@@ -79,7 +88,7 @@
     <p><h4>Fields</h4></p>
 
 <p>
-	<pre>
+	<pre onmouseover="this.style.opacity='1.0'" onmouseout="this.style.opacity='0.9'">
 		<code>	
 	<span class="document">/** represents _nBanks X _nPads */</span>
 	<span class="declaration">private var</span> _soundCollection: [[<span class="type">PadModel</span>?]?]! = [];
@@ -106,7 +115,7 @@
 <p><h4>Stop() Method</h4></p>
 
 <p>
-	<pre>
+	<pre onmouseover="this.style.opacity='1.0'" onmouseout="this.style.opacity='0.9'">
 		<code>
 	<span class="document">//** stop playing the pad corresponding to the bank and pad number */</span>
     <span class="declaration">func</span> stop(bank: <span class="type">Int</span>, pad: <span class="type">Int</span>, preview: <span class="type">Bool</span>)
@@ -143,7 +152,7 @@
 <p><h4>Method Fired By Timer</h4></p>
 
 <p>
-	<pre>
+	<pre onmouseover="this.style.opacity='1.0'" onmouseout="this.style.opacity='0.9'">
 		<code>
     <span class="document">/** apply a real time fade out if the pad is stopped before its set endpoint
             this method is used by a timer.*/</span>
@@ -187,7 +196,7 @@
 <p><h4>Connecting The Sound Graph</h4></p>
 
 <p>
-	<pre>
+	<pre onmouseover="this.style.opacity='1.0'" onmouseout="this.style.opacity='0.9'">
 		<code>
     <span class="document">/** connect each pad in the pad array to a mixer node,
             and then connect each mixer node for each pad to a single mixer node */</span>
@@ -236,7 +245,7 @@
 <p><h4>Adjusting Your App's Audio Latency</h4></p>
 
 <p>
-	<pre>
+	<pre onmouseover="this.style.opacity='1.0'" onmouseout="this.style.opacity='0.9'">
 		<code>
     <span class="declaration">var</span> _audioSession = <span class="type">AVAudioSession</span>.<span class="type">sharedInstance</span>()
 
@@ -262,7 +271,6 @@
 <section>
     <p><h3>Some Files Click More Than Others</h3></p>
 
-    
     Now I will say that some audio files I&apos;ve loaded into my Sampler App seem to be &quot;clickier&quot; than others, in that the applied fade will not always completely cancel a stop click depending on where I stop playing the file. But I&apos;ve really only seen this happen maybe with two files out of around a hundred I&apos;ve tested on my app.
     
 </section>
@@ -292,9 +300,19 @@
 <hr>
 
 <footer class="audio-fades-footer">
-    <nav>
-        home
-    </nav>
+        <ul>
+                <li class="inline-li">
+                    <a href="index.html">home</a>
+                </li>
+                |
+                <li class="inline-li">
+                        <a href="posts.html">posts</a>
+                </li>
+                |
+                <li class="inline-li">
+                        <a href="tunes.html">tunes</a>
+                </li>
+            </ul>
 </footer>
 
 </body>

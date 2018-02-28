@@ -1,5 +1,5 @@
 function postClick(){ document.location.assign("posts.html"); }
 
-function tunesClick(){}
+function tunesClick(){  document.location.assign("tunes.html"); }
 
 function resumeClick(){}

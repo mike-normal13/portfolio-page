@@ -19,3 +19,10 @@ header, section, footer, .catagory-box
 {
 	font-family: 'Ubuntu', sans-serif;
 }
+
+.inline-li
+{
+    display:inline;
+    padding-left: 10px;
+    padding-right: 10px;
+}

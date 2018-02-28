@@ -13,5 +13,5 @@ section
 	background-color: bisque;
 	background-clip: border-box;
     opacity: 0.6;
-    border-radius: 25px 25px 25px 25px;
+	border-radius: 25px 25px 25px 25px;
 }
