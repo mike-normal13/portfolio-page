@@ -1,13 +1,7 @@
-body
-{
-	margin:10px 100px;
-}
+body{		margin:10px 100px;	}
 
 header.audio-fades-header, footer.audio-fades-footer, header.posts-header, footer.posts-footer, header.tunes-header, footer.tunes-footer
 {
-	/* this works but the content under neat does not clip to it */
-	/*position: fixed;*/
-
 	background-color: lightyellow;
 	border-radius: 25px;
 	opacity: 0.9;
@@ -15,10 +9,7 @@ header.audio-fades-header, footer.audio-fades-footer, header.posts-header, foote
 	text-shadow: 4px 4px 4px #aaa;
 }
 
-header, section, footer, .catagory-box
-{
-	font-family: 'Ubuntu', sans-serif;
-}
+header, section, footer, .catagory-box{	font-family: 'Ubuntu', sans-serif;	}
 
 .inline-li
 {
@@ -27,12 +18,6 @@ header, section, footer, .catagory-box
     padding-right: 10px;
 }
 
-a
-{
-	text-decoration: none;
-}
+a{	text-decoration: none;	}
 
-a:hover
-{
-	text-decoration: underline;
-}
+a:hover{	text-decoration: underline;	}

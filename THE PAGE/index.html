@@ -1,18 +1,37 @@
 <!DOCTYPE html>
+
+<!--
+Must haves for the page:
+1: need to sort all appropriate meta tags on all pages.
+2: look good on desktop and mobile devices,
+	it would be nice if we did not have to some or scroll in any way.
+3: we need a banner.
+	at the top will be the title of the blog.
+	at the bottom will be contact info including link to SC
+4: favicon 32X32
+5: need to provide a fall back font
+6: is the meta name=“description” attribute useful..?
+7: 2/28/2018 we're noticing that when we load some of the pages on our machine
+		 there is a lag and discontinuity as far as loading the background images is concerned.
+			 would the prefetch option be the remedy...?
+8: we need to add a copyright section to each page
+-->
+
 <html>
 <head>
 	<title>Budge Blog</title>
+	<meta name="author" content="Mike Fleming">
 
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"> 
 	<link rel="stylesheet" type="text/css" href="Styles/master.css">
 	<link rel="stylesheet" type="text/css" href="Styles/index.css">
 	<script src="Scripts/index.js"></script>
+	
 </head>
 
 <body>
 	<header>
 		<nav>
-			
 		</nav>
 
 		<div class="title-container">
@@ -24,15 +43,10 @@
 
 	<div class="catagory-container" >
 		<p id="postPad" class="catagory-box" 
-		onmouseover="this.style.background='BurlyWood'; this.style.opacity='1'" 
-		onmouseout="this.style.background='bisque'; this.style.opacity='0.9'"
 		onmouseup="postClick()">
-			
 			Posts
 		</p>
 		<p id="tunesPad" class="catagory-box" 
-		onmouseover="this.style.background='BurlyWood'; this.style.opacity='1'" 
-		onmouseout="this.style.background='bisque'; this.style.opacity='0.9'"
 		onmouseup="tunesClick()">
 			Tunes
 		</p>
