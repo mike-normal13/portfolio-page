@@ -17,11 +17,13 @@ section
     opacity: 0.7;
     border-radius: 25px 25px 25px 25px;
     transition-duration: 300ms;
+    font-size: 100%;
 }
 
 section:hover
 {
     opacity: 1.0;
+    font-size: 103%;
 }
 
 iframe

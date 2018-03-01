@@ -25,13 +25,21 @@ pre
 	padding: 0px, 10px;
 	background-color: lightgray;
 	border-radius: 25px 25px 25px 25px;
-	box-shadow: 4px 4px 4px #aaa;
-	font-weight: bold;
-	font-size: 105%;
+	
+	font-weight: normal;
+	/*font-size: 100%;*/
 	opacity: 0.9;
+	transition-duration: 400ms;
 }
 
-pre:hover{	opacity: 1.0;	}
+pre:hover
+{
+	box-shadow: 10px 10px 10px #aaa;
+	background-color: rgb(236, 236, 236);
+	opacity: 1.0;	
+	font-weight: bold;
+	/* looks goofy when we animate adjusting the font size */
+}
 
 .section-bottom{	border-radius: 0px 0px 25px 25px;	}
 

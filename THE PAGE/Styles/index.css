@@ -11,7 +11,30 @@ body
 {
 	background-color: lightyellow;	
 	max-width: 500px;
-	margin: auto;
+	margin: auto;	
+}
+
+.title-container:hover
+{
+	animation-delay: 1000ms;
+	animation-duration: 500ms;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	animation-name: 'GrowShrink';
+}
+
+@keyframes GrowShrink
+{
+	from
+	{
+		background-color: lightyellow;
+		font-size: 100%;
+	}
+	to
+	{
+		background-color: orange;
+		font-size: 200%;
+	}
 }
 
 .budge-title, .budge-sub1, .budge-sub2, .catagory-box{	text-align: center;	}
@@ -40,6 +63,7 @@ body
 	background-color: bisque;
 	opacity: 0.9;
 	transition-duration: 300ms;
+	
 }
 
 .catagory-box:hover
@@ -47,6 +71,7 @@ body
 	background-color: burlywood;
 	opacity: 1.0;
 	text-shadow: 4px 4px 4px rgb(95, 95, 95);
+	font-size: 500%;
 }
 
 .title-container, .catagory-container{	opacity: 0.7;	}

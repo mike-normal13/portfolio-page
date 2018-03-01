@@ -21,3 +21,14 @@ header, section, footer, .catagory-box{	font-family: 'Ubuntu', sans-serif;	}
 a{	text-decoration: none;	}
 
 a:hover{	text-decoration: underline;		}
+
+footer
+{
+	font-size: 100%;
+	transition-duration: 100ms;
+}
+
+footer:hover
+{
+	font-size: 105%
+}
