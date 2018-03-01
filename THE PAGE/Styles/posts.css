@@ -14,4 +14,8 @@ section
 	background-clip: border-box;
     opacity: 0.6;
 	border-radius: 25px 25px 25px 25px;
+	transition-duration: 300ms;
+	opacity: 0.6;
 }
+
+section:hover{	opacity: 1.0;	}

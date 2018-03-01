@@ -90,7 +90,7 @@
     <p><h4>Fields</h4></p>
 
 <p>
-	<pre onmouseover="this.style.opacity='1.0'" onmouseout="this.style.opacity='0.9'">
+	<pre>
 		<code>	
 	<span class="document">/** represents _nBanks X _nPads */</span>
 	<span class="declaration">private var</span> _soundCollection: [[<span class="type">PadModel</span>?]?]! = [];
@@ -117,7 +117,7 @@
 <p><h4>Stop() Method</h4></p>
 
 <p>
-	<pre onmouseover="this.style.opacity='1.0'" onmouseout="this.style.opacity='0.9'">
+	<pre>
 		<code>
 	<span class="document">//** stop playing the pad corresponding to the bank and pad number */</span>
     <span class="declaration">func</span> stop(bank: <span class="type">Int</span>, pad: <span class="type">Int</span>, preview: <span class="type">Bool</span>)
@@ -154,7 +154,7 @@
 <p><h4>Method Fired By Timer</h4></p>
 
 <p>
-	<pre onmouseover="this.style.opacity='1.0'" onmouseout="this.style.opacity='0.9'">
+	<pre>
 		<code>
     <span class="document">/** apply a real time fade out if the pad is stopped before its set endpoint
             this method is used by a timer.*/</span>
@@ -198,7 +198,7 @@
 <p><h4>Connecting The Sound Graph</h4></p>
 
 <p>
-	<pre onmouseover="this.style.opacity='1.0'" onmouseout="this.style.opacity='0.9'">
+	<pre>
 		<code>
     <span class="document">/** connect each pad in the pad array to a mixer node,
             and then connect each mixer node for each pad to a single mixer node */</span>
@@ -247,11 +247,10 @@
 <p><h4>Adjusting Your App's Audio Latency</h4></p>
 
 <p>
-	<pre onmouseover="this.style.opacity='1.0'" onmouseout="this.style.opacity='0.9'">
+	<pre>
 		<code>
     <span class="declaration">var</span> _audioSession = <span class="type">AVAudioSession</span>.<span class="type">sharedInstance</span>()
 
-    <span class="comment">//http://stackoverflow.com/questions/34680007/answer/submit#</span>
     <span class="declaration">do</span>
     {
         <span class="declaration">try</span> <span class="name">_audioSession</span>.<span class="type">setPreferredIOBufferDuration</span>(<span class="literal">0.006</span>); <span class="comment">// 0.006 may not work so well on older devices, 
@@ -266,7 +265,7 @@
 </p>
 
 
-	I have the code snippet above reside in my AppDelegate.
+	<i>I have the code snippet above reside in my AppDelegate</i>
 
 </section>
 

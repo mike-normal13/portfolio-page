@@ -26,7 +26,12 @@ pre
 	background-color: lightgray;
 	border-radius: 25px 25px 25px 25px;
 	box-shadow: 4px 4px 4px #aaa;
+	font-weight: bold;
+	font-size: 105%;
+	opacity: 0.9;
 }
+
+pre:hover{	opacity: 1.0;	}
 
 .section-bottom{	border-radius: 0px 0px 25px 25px;	}
 
