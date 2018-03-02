@@ -3,8 +3,8 @@ body
 	background: url(../Images/Backgrounds/index.png) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
-  	-o-background-size: cover;
-  	background-size: cover;
+	-o-background-size: cover;
+	  background-size: cover;
 }
 
 .title-container
@@ -16,12 +16,14 @@ body
 
 .title-container:hover
 {
-	animation-delay: 1000ms;
+	
+	animation-delay: 300ms;
 	animation-duration: 500ms;
 	animation-iteration-count: infinite;
 	animation-timing-function: linear;
 	animation-name: 'GrowShrink';
 }
+
 
 @keyframes GrowShrink
 {

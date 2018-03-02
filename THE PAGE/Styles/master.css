@@ -1,4 +1,37 @@
-body{		margin:10px 100px;	}
+
+@media(min-width: 1001px)
+{
+	body
+	{
+		/* first value is top and bottom,
+			second is right and left	*/
+		/* big screen width*/
+		margin:10px 100px;			
+	
+	}
+}
+@media(min-width: 401px) and (max-width: 1000px)
+{
+	body
+	{
+		/* first value is top and bottom,
+			second is right and left	*/
+		/* big screen width*/
+		margin:10px 50px;			
+	
+	}
+}
+@media(max-width: 400px)
+{
+	body
+	{
+		/* first value is top and bottom,
+			second is right and left	*/
+		/* big screen width*/
+		margin:10px 10px;			
+	
+	}
+}
 
 header.audio-fades-header, footer.audio-fades-footer, header.posts-header, footer.posts-footer, header.tunes-header, footer.tunes-footer
 {

@@ -73,11 +73,11 @@
        With that in mind, 
        you can connect an AVAudioPlayer node to an AVAudioMixerNode. 
        Have an interval set up that will function as your fade time, 
-       and have an array of values which will correspond to the audio fade. 
+       and have an array of values which correspond to the audio fade. 
        I ended up using a linear fade, it works fine. 
        Then, when you call stop, 
        fire a timer that will adjust the AVAudioMixerNode&apos;s volume property N number of times, 
-       N being the length of you fade array. 
+       N being the length of your fade array. 
        You get the point, it is a simple solution, 
        I just could not find anybody on line describing it so here it is!
     </p>

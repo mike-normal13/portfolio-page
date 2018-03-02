@@ -7,9 +7,25 @@ body
   	background-size: cover;
 }
 
+@media(min-width: 1001px)/* big screen */
+{
+	section{	padding:10px 100px ;	}
+}
+
+@media(min-width: 401px) and (max-width: 1000px)/* medium screen */
+{
+	section{	padding:10px 50px ;	}
+}
+
+@media(max-width: 400px)	/* small screen */
+{
+	section{	padding:10px 10px ;	}
+}
+
 section
 {
-	padding:10px 100px ;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
 	background-color: bisque;
 	background-clip: border-box;
     opacity: 0.6;

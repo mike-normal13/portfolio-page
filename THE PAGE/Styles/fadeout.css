@@ -8,9 +8,36 @@ body
 	/*margin:10px 100px;*/
 }
 
+
+@media(min-width: 1001px)/* big screen */
+{
+	section{	padding:10px 100px ;	}
+	pre
+	{
+		font-size: 100%;
+	}
+}
+
+@media(min-width: 401px) and (max-width: 1000px)/* medium screen */
+{
+	section{	padding:10px 50px ;	}
+	pre
+	{
+		font-size: 75%;
+	}
+}
+
+@media(max-width: 400px)	/* small screen */
+{
+	section{	padding:10px 10px ;	}
+	pre
+	{
+		font-size: 25%;
+	}
+}
+
 section
 {
-	padding:10px 100px ;
 	background-color: bisque;
 	background-clip: border-box;
 	opacity: 0.7;

@@ -1,3 +1,8 @@
+/*
+    1:  highlighting of song sections does not seem to take affect on the phone due to touch
+            disable it for small screen sizes.
+*/
+
 body
 {
 	background: url(../Images/Backgrounds/tunes.png) no-repeat center center fixed;
@@ -8,10 +13,24 @@ body
 	/*margin:10px 100px;*/
 }
 
+@media(min-width: 1001px)/* big screen */
+{
+	section{	padding:10px 100px ;	}
+}
+
+@media(min-width: 401px) and (max-width: 1000px)/* medium screen */
+{
+	section{	padding:10px 50px ;	}
+}
+
+@media(max-width: 400px)	/* small screen */
+{
+	section{	padding:10px 10px ;	}
+}
+
 /* this is duplicated from the posts.css file */
 section
 {
-	padding:10px 100px ;
 	background-color: bisque;
 	background-clip: border-box;
     opacity: 0.7;
