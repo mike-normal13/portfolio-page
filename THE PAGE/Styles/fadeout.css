@@ -1,40 +1,84 @@
-body
-{
-	background: url(../Images/Backgrounds/fadeout.png) no-repeat center center fixed;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-  	-o-background-size: cover;
-  	background-size: cover;
-	/*margin:10px 100px;*/
-}
-
-
+/*********************************** Dimension Dependent Styles ******************************************/
 @media(min-width: 1001px)/* big screen */
 {
 	section{	padding:10px 100px ;	}
+	
+
 	pre
 	{
 		font-size: 100%;
+		background-color: lightgray;
+		font-weight: normal;
+		opacity: 0.9;
+		transition-duration: 400ms;
+	}
+
+	pre:hover
+	{
+		box-shadow: 10px 10px 10px #aaa;
+		background-color: rgb(236, 236, 236);
+		opacity: 1.0;	
+		font-weight: bold;
 	}
 }
 
 @media(min-width: 401px) and (max-width: 1000px)/* medium screen */
 {
 	section{	padding:10px 50px ;	}
+	
 	pre
 	{
 		font-size: 75%;
+		background-color: lightgray;
+		font-weight: normal;
+		opacity: 0.9;
+		transition-duration: 400ms;
+	}
+
+	pre:hover
+	{
+		box-shadow: 10px 10px 10px #aaa;
+		background-color: rgb(236, 236, 236);
+		opacity: 1.0;	
+		font-weight: bold;
 	}
 }
 
 @media(max-width: 400px)	/* small screen */
 {
 	section{	padding:10px 10px ;	}
+	
+	/* no hovering with mobile screen */
 	pre
 	{
 		font-size: 25%;
+		background-color: rgb(236, 236, 236);
+		font-weight: bold;
+		opacity: 1.0;
+		box-shadow: 5px 5px 5px #aaa;
 	}
 }
+body
+{
+	/*3/3/2018
+		for some reason when we used background instead of background-image
+			when we would scroll down just a little bit on a mobile screen,
+				a portion of the screen's background would be white,
+					doing it this way has seemed to solve the problem,
+						the background images looks much more pixilated,
+							but I can live with that for now. */
+	background-image: url(../Images/Backgrounds/fadeout.jpg);
+	/*background: url(../Images/Backgrounds/fadeout.jpg) no-repeat center center fixed;*/
+	
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+  	-o-background-size: cover;
+	  background-size: cover;
+	
+	/*margin:10px 100px;*/
+}
+/*********************************** end of Dimension Dependent Styles ******************************************/
+
 
 section
 {
@@ -50,21 +94,15 @@ pre
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
 	padding: 0px, 10px;
-	background-color: lightgray;
 	border-radius: 25px 25px 25px 25px;
-	
-	font-weight: normal;
-	/*font-size: 100%;*/
-	opacity: 0.9;
-	transition-duration: 400ms;
 }
 
 pre:hover
 {
-	box-shadow: 10px 10px 10px #aaa;
+	/*box-shadow: 10px 10px 10px #aaa;
 	background-color: rgb(236, 236, 236);
 	opacity: 1.0;	
-	font-weight: bold;
+	font-weight: bold;*/
 	/* looks goofy when we animate adjusting the font size */
 }
 

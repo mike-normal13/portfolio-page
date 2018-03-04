@@ -1,7 +1,9 @@
 /*
-1:	on the mobile screen make the buttons more rectangular.
+1: 3/3/2018
+	when we decrease the width of the browser window,
+		the width approaches the crossover point into the mobile mode,
+			the labels in the buttons go outside of the div....
 1: make is so the button's height decreases as the width of the screen decreases 
-
 */
 
 /******************************* Dimension dependent styles ******************************************/
@@ -29,7 +31,7 @@
 		background-color: burlywood;
 		opacity: 1.0;
 		text-shadow: 4px 4px 4px rgb(95, 95, 95);
-		font-size: 450%;
+		font-size: 400%;
 	}
 }
 
@@ -41,13 +43,15 @@
 	.catagory-container
 	{
 		line-height: 300px;
-		font-size: 300%;
+		font-size: 200%;
 		display: -webkit-box;/* 3/32018 for now ... */
 		margin: 10px;
 	}
 
 	.catagory-box
 	{
+		line-height: 300px;
+		font-size: 150%;
 		transition-duration: 300ms;
 		margin: 5px;
 	}
@@ -57,7 +61,7 @@
 		background-color: burlywood;
 		opacity: 1.0;
 		text-shadow: 4px 4px 4px rgb(95, 95, 95);
-		font-size: 450%;
+		font-size: 200%;
 	}
 }
 @media(max-width: 400px)	/* small screen */
@@ -134,7 +138,7 @@ body
 {
 	
 	border-radius: 25px;
-	overflow: auto;
+	overflow: visible;
 	-webkit-overflow-scrolling: touch;	
 	text-shadow: 4px 4px 4px #aaa;
 }

@@ -3,7 +3,6 @@
 
 <!-- TODOs
 
-
 -->
 
 <head>
@@ -94,22 +93,22 @@
 <p>
 	<pre>
 		<code>	
-	<span class="document">/** represents _nBanks X _nPads */</span>
+    <span class="document">/** represents _nBanks X _nPads */</span>
 	<span class="declaration">private var</span> _soundCollection: [[<span class="type">PadModel</span>?]?]! = [];
 
 	<span class="document">/** every pad will have its own mixer,
             i.e. each of the player nodes associtaed with a pad will connect to a mixer node,
             thereby making it easier to adjust settings such as volume for all player nodes at once.
             each pad mixer node will be attached to the mixer node assigned to each bank */</span>
-	<span class="declaration">private var</span> _padMixerArray: [[<span class="type">AVAudioMixerNode</span>?]] = [];
+	<span class="declaration">private var</span> _padMixers: [[<span class="type">AVAudioMixerNode</span>?]] = [];
 
 	<span class="declaration">private var</span> _fadeOutTimerInterval = <span class="literal">0.001</span>;
 
-	<span class="declaration">private var</span> _fadeCountArray: [[<span class="type">Int</span>]] = [];
-	<span class="declaration">private var</span> _fadeScalarArray: [[<span class="type">Double</span>]] = [];
+	<span class="declaration">private var</span> _fadeCounts: [[<span class="type">Int</span>]] = [];
+	<span class="declaration">private var</span> _fadeScalars: [[<span class="type">Double</span>]] = [];
 
 	<span class="document">/** used to apply instant fade out when a pad is released by the user */</span>
-	<span class="declaration">private var</span> _releaseTimerArray: [[<span class="type">Timer</span>?]] = [];
+	<span class="declaration">private var</span> _releaseTimers: [[<span class="type">Timer</span>?]] = [];
 
 		</code>
 	</pre>
@@ -124,7 +123,7 @@
 	<span class="document">//** stop playing the pad corresponding to the bank and pad number */</span>
     <span class="declaration">func</span> stop(bank: <span class="type">Int</span>, pad: <span class="type">Int</span>, preview: <span class="type">Bool</span>)
     {
-        <span class="name">_releaseTimerArray</span>[bank][pad] = <span class="type">Timer</span>()
+        <span class="name">_releaseTimers</span>[bank][pad] = <span class="type">Timer</span>()
         
         <span class="comment">// without this, the mixer node's volume will stay at zero once the fade completes.</span>
         <span class="declaration">var</span> preFadeVolume: <span class="type">Float</span> = <span class="literal">0.0</span>;
@@ -133,9 +132,9 @@
         preFadeVolume = (<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">volume</span>)!
         
                 
-        <span class="declaration">if</span>((<span class="name">_releaseTimerArray</span>[bank][pad] == <span class="declaration"> nil</span>))
+        <span class="declaration">if</span>((<span class="name">_releaseTimers</span>[bank][pad] == <span class="declaration"> nil</span>))
         {
-            <span class="name">_releaseTimerArray</span>[bank][pad] = <span class="name">Timer</span>.<span class="name">scheduledTimer</span>(timeInterval: <span class="name">_fadeOutTimerInterval</span>, 
+            <span class="name">_releaseTimers</span>[bank][pad] = <span class="name">Timer</span>.<span class="name">scheduledTimer</span>(timeInterval: <span class="name">_fadeOutTimerInterval</span>, 
             						target: <span class="declaration">self</span>, 
             						selector: <span class="declaration">#selector</span>(<span class="declaration">self</span>.fadeout(timer:)), 
             						userInfo: (bank, pad, preFadeVolume, preview), 
@@ -166,12 +165,12 @@
         <span class="declaration">let</span> userInfo = timer.<span class="type">userInfo</span> <span class="declaration">as</span>! (<span class="type">Int</span>, <span class="type">Int</span>, <span class="type">Float</span>, <span class="type">Bool</span>);
         
         <span class="comment">// linear fade</span>
-        <span class="name">_fadeScalarArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] -= <span class="name">_fadeDecrement</span>; <span class="comment">// 1/32</span>
+        <span class="name">_fadeScalars</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] -= <span class="name">_fadeDecrement</span>; <span class="comment">// 1/32</span>
     
-        <span class="name">_padMixerArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>]?.<span class="type">volume</span> = 
-            <span class="type">Float</span>(<span class="name">_fadeScalarArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>]) * userInfo.<span class="literal">2</span>;
+        <span class="name">_padMixers</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>]?.<span class="type">volume</span> = 
+            <span class="type">Float</span>(<span class="name">_fadeScalars</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>]) * userInfo.<span class="literal">2</span>;
         
-        <span class="declaration">if</span>(<span class="name">_fadeCountArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] == <span class="name">_fadeSpan</span>)
+        <span class="declaration">if</span>(<span class="name">_fadeCounts</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] == <span class="name">_fadeSpan</span>)
         {
             <span class="declaration">if</span>(<span class="name">_soundCollection</span>[userInfo.<span class="literal">0</span>]![userInfo.<span class="literal">1</span>]?.<span class="name">isPlaying</span>)!
             {
@@ -180,18 +179,18 @@
             }
             
             <span class="comment">//  reset the mixer node to volume prior to the fade</span>
-            <span class="name">_padMixerArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>]?.<span class="type">volume</span> = 
+            <span class="name">_padMixers</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>]?.<span class="type">volume</span> = 
                 (<span class="name">_soundCollection</span>[userInfo.<span class="literal">0</span>]![userInfo.<span class="literal">1</span>]?.<span class="type">volume</span>)!;
             
-            <span class="name">_fadeCountArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] = <span class="literal">0</span>;
-            <span class="name">_fadeScalarArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] = <span class="literal">1.0</span>;
+            <span class="name">_fadeCounts</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] = <span class="literal">0</span>;
+            <span class="name">_fadeScalars</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] = <span class="literal">1.0</span>;
             
             timer.<span class="type">invalidate</span>();
             
-            <span class="name">_releaseTimerArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] = <span class="declaration">nil</span>;
+            <span class="name">_releaseTimers</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] = <span class="declaration">nil</span>;
         }
         
-        <span class="name">_fadeCountArray</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] += <span class="literal">1</span>;
+        <span class="name">_fadeCounts</span>[userInfo.<span class="literal">0</span>][userInfo.<span class="literal">1</span>] += <span class="literal">1</span>;
     }
 		</code>
 	</pre>
@@ -212,9 +211,9 @@
             <span class="declaration">return</span>;
         }
         <span class="comment">// initialize pad's mixer node</span>
-        <span class="declaration">if</span>(<span class="name">_padMixerArray</span>[bank][pad] == <span class="declaration">nil</span>){   <span class="name">_padMixerArray</span>[bank][pad] = <span class="type">AVAudioMixerNode()</span>; }
+        <span class="declaration">if</span>(<span class="name">_padMixers</span>[bank][pad] == <span class="declaration">nil</span>){   <span class="name">_padMixers</span>[bank][pad] = <span class="type">AVAudioMixerNode()</span>; }
         
-        <span class="name">_engine</span>.attach(<span class="name">_padMixerArray</span>[bank][pad]!)
+        <span class="name">_engine</span>.attach(<span class="name">_padMixers</span>[bank][pad]!)
         
         <span class="declaration">if</span>(<span class="name">_soundCollection</span>[bank]![pad] != <span class="declaration">nil</span>)
         {
@@ -229,7 +228,7 @@
                 <span class="name">_engine</span>.<span class="type">attach</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">varispeedNodeArray</span>[i])!);
                 <span class="name">_engine</span>.<span class="type">attach</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">playerNodeArray</span>[i])!);
                 <span class="name">_engine</span>.<span class="type">connect</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">varispeedNodeArray</span>[i])!, 
-                		to: <span class="name">_padMixerArray</span>[bank][pad]!, 
+                		to: <span class="name">_padMixers</span>[bank][pad]!, 
                 		format: <span class="type">AVAudioFormat</span>(standardFormatWithSampleRate: tempPadSampleRate!, 
                 						channels: tempFileChannelCount!));
                 
@@ -240,7 +239,7 @@
             }
         }
         
-        <span class="name">_engine</span>.<span class="type">connect</span>(<span class="name">_padMixerArray</span>[bank][pad]!, to: <span class="name">_engine</span>.<span class="type">mainMixerNode</span>, format: <span class="name">_outputFormat</span>);
+        <span class="name">_engine</span>.<span class="type">connect</span>(<span class="name">_padMixers</span>[bank][pad]!, to: <span class="name">_engine</span>.<span class="type">mainMixerNode</span>, format: <span class="name">_outputFormat</span>);
     }
 		</code>
 	</pre>
