@@ -1,87 +1,141 @@
+/*
+1:	on the mobile screen make the buttons more rectangular.
+1: make is so the button's height decreases as the width of the screen decreases 
+
+*/
+
+/******************************* Dimension dependent styles ******************************************/
+/* big screen */
+@media(min-width: 1001px)
+{	
+	.budge-sub2{	font-size: 200%;	}
+
+	.catagory-container
+	{
+		display: -webkit-box;
+		margin: 10px;
+	}
+
+	.catagory-box
+	{
+		line-height: 300px;
+		font-size: 300%;
+		transition-duration: 300ms;	
+		margin: 5px;
+	}
+
+	.catagory-box:hover
+	{
+		background-color: burlywood;
+		opacity: 1.0;
+		text-shadow: 4px 4px 4px rgb(95, 95, 95);
+		font-size: 450%;
+	}
+}
+
+/* medium screen */
+@media(min-width: 401px) and (max-width: 1000px)
+{
+	.budge-sub2{	font-size: 200%;	}
+
+	.catagory-container
+	{
+		line-height: 300px;
+		font-size: 300%;
+		display: -webkit-box;/* 3/32018 for now ... */
+		margin: 10px;
+	}
+
+	.catagory-box
+	{
+		transition-duration: 300ms;
+		margin: 5px;
+	}
+
+	.catagory-box:hover
+	{
+		background-color: burlywood;
+		opacity: 1.0;
+		text-shadow: 4px 4px 4px rgb(95, 95, 95);
+		font-size: 450%;
+	}
+}
+@media(max-width: 400px)	/* small screen */
+{
+	.budge-sub2{	font-size: 175%;	}
+
+	.catagory-container{	display: block;	}
+
+	.catagory-box
+	{
+		line-height: 100px;
+		font-size: 300%;
+		-webkit-box-align: stretch;	/* stretches to fill empty vertical space */
+		margin-top: 20px;
+		margin-bottom: 20px;
+		margin-right: auto;
+		margin-left: auto;
+	}
+
+	.catagory-box:hover
+	{
+		background-color: burlywood;
+		opacity: 1.0;
+		text-shadow: 4px 4px 4px rgb(95, 95, 95);
+	}
+}
+/******************************* end of Dimension dependent styles ******************************************/
+
+
+
+/******************************** Universal styles ***********************************************/
 body
 {
 	background: url(../Images/Backgrounds/index.png) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-	  background-size: cover;
+	background-size: cover;
 }
 
 .title-container
 {
+
 	background-color: lightyellow;	
 	max-width: 500px;
 	margin: auto;	
-}
-
-.title-container:hover
-{
-	
-	animation-delay: 300ms;
-	animation-duration: 500ms;
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
-	animation-name: 'GrowShrink';
-}
-
-
-@keyframes GrowShrink
-{
-	from
-	{
-		background-color: lightyellow;
-		font-size: 100%;
-	}
-	to
-	{
-		background-color: orange;
-		font-size: 200%;
-	}
+	border: thick black solid;
 }
 
 .budge-title, .budge-sub1, .budge-sub2, .catagory-box{	text-align: center;	}
 
 .budge-title{	font-size: 325%;	}
 .budge-sub1{	font-size: 250%;	}
-.budge-sub2{	font-size: 200%;	}
+
+.title-container, .catagory-container{	opacity: 0.7;	}
 
 .catagory-container
 {
-	display: -webkit-box;
 	-webkit-box-align: stretch;	/* stretches to fill empty vertical space */
 	-webkit-box-pack: justify;
-	margin: 10px;
 	height: 300px;
 }
 
 .catagory-box
 {
 	-webkit-box-flex: 1;
-	margin: 5px;
-	width: 100%;				/* enforces equal widths */
-	background-color: bisque;
-	line-height: 300px;
-	font-size: 300%;
-	background-color: bisque;
-	opacity: 0.9;
-	transition-duration: 300ms;
-	
+		width: 100%;				/* enforces equal widths */
+		background-color: bisque;
+		opacity: 0.9;
+		
 }
-
-.catagory-box:hover
-{
-	background-color: burlywood;
-	opacity: 1.0;
-	text-shadow: 4px 4px 4px rgb(95, 95, 95);
-	font-size: 500%;
-}
-
-.title-container, .catagory-container{	opacity: 0.7;	}
 
 .title-container, .catagory-box
 {
+	
 	border-radius: 25px;
-	text-shadow: 4px 4px 4px #aaa;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;	
+	text-shadow: 4px 4px 4px #aaa;
 }
+/******************************** end of Universal styles ***********************************************/

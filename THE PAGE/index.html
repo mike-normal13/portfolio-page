@@ -2,20 +2,15 @@
 
 <!--
 Must haves for the page:
-1: need to sort all appropriate meta tags on all pages.
-2: look good on desktop and mobile devices,
-	it would be nice if we did not have to some or scroll in any way.
-3: we need a banner.
-	at the top will be the title of the blog.
-	at the bottom will be contact info including link to SC
+1: in index.html have the the buttons appear in block allignment on the mobile screen.
 4: favicon 32X32
-5: need to provide a fall back font
-6: is the meta name=“description” attribute useful..?
 7: 2/28/2018 we're noticing that when we load some of the pages on our machine
 		 there is a lag and discontinuity as far as loading the background images is concerned.
 			 would the prefetch option be the remedy...?
 8: we need to add a copyright section to each page
 9: we need to make the dimensions of the buttons on the index page grow and shrink due to hover...
+10: in all .html files,
+		add a main tag the encomapases everything between the header and footer tags.
 -->
 
 <html>
@@ -36,6 +31,7 @@ Must haves for the page:
 		<nav>
 		</nav>
 
+		
 		<div class="title-container">
 			<h1 class="budge-title">Budge Blog</h1>
 			<h2 class="budge-sub1">Mike Fleming's Portfolio</h2>
@@ -43,15 +39,16 @@ Must haves for the page:
 		</div>
 	</header>
 
-	<div class="catagory-container" >
-		<p id="postPad" class="catagory-box" 
-		onmouseup="postClick()">
-			Posts
-		</p>
-		<p id="tunesPad" class="catagory-box" 
-		onmouseup="tunesClick()">
-			Tunes
-		</p>
+	<main>
+		<div class="catagory-container" >
+			<p id="postPad" class="catagory-box" 
+				onmouseup="postClick()">
+				Posts
+			</p>
+			<p id="tunesPad" class="catagory-box" 
+				onmouseup="tunesClick()">
+				Tunes
+			</p>
 		
 		<!--
 		<p id="resumePad" class="catagory-box" 
@@ -60,12 +57,10 @@ Must haves for the page:
 			Resume
 		</p>
 		-->
-
-	</div>
+		</div>
+	</main>
 
 	<footer>
-		
 	</footer>
-
 </body>
 </html>
