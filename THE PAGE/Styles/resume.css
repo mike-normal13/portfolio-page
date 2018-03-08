@@ -1,0 +1,69 @@
+/* an aside */
+.left
+{
+    width: 20%;
+    float: left;
+    border-radius: 15px;
+    /*background-color: blue;*/
+    /*background-size: 250% 100%;*/
+    background-image: linear-gradient(to right, darkblue, blue);
+    /*background-image: linear-gradient(to right, blue, lightblue);*/
+    /*background-image: linear-gradient(90deg, blue, white 300px);*/
+    /*background-image: linear-gradient(to right, blue 97%, lightblue 100%);*/
+}
+
+/* a div */
+#right
+{
+    width: 80%;
+    float: right;
+    margin-left: 10px;
+}
+
+#name
+{
+    margin-bottom: 2px;
+    color: white;
+}
+
+#position
+{
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.aside-text
+{
+    margin-left: 5px;
+}
+
+.main-text
+{
+    padding-left: 10px;
+}
+
+#info-heading
+{
+    background-size: 300% 100%;
+    background-image: linear-gradient(to right, darkblue, white);
+    color: white;
+    padding-left: 5px;
+    margin-left: 0px;
+    padding-top: 3px;
+}
+
+.info-subheading
+{
+   display: block; 
+   color: white;
+}
+
+.info-subheading, .info-content
+{
+    padding-left: 5px;
+}
+
+#position, .info-content
+{
+    color: lightsteelblue;
+}

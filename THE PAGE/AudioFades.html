@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width"> <!-- for mobile... yet untested -->
     <meta name="author" content="Mike Fleming">
     <meta name="keywords" content="audio fade out, real time audio fade, swift, ios, AVFoundation, fade, AVAudioPlayerNode, audio fade, audio fade envelope">
+    <meta charset="utf-8">
 </head>
 <body>
 
@@ -97,9 +98,9 @@
 	<span class="declaration">private var</span> _soundCollection: [[<span class="type">PadModel</span>?]?]! = [];
 
 	<span class="document">/** every pad will have its own mixer,
-            i.e. each of the player nodes associtaed with a pad will connect to a mixer node,
-            thereby making it easier to adjust settings such as volume for all player nodes at once.
-            each pad mixer node will be attached to the mixer node assigned to each bank */</span>
+    i.e. each of the player nodes associtaed with a pad will connect to a mixer node,
+    thereby making it easier to adjust settings such as volume for all player nodes at once.
+    each pad mixer node will be attached to the mixer node assigned to each bank */</span>
 	<span class="declaration">private var</span> _padMixers: [[<span class="type">AVAudioMixerNode</span>?]] = [];
 
 	<span class="declaration">private var</span> _fadeOutTimerInterval = <span class="literal">0.001</span>;
@@ -135,10 +136,10 @@
         <span class="declaration">if</span>((<span class="name">_releaseTimers</span>[bank][pad] == <span class="declaration"> nil</span>))
         {
             <span class="name">_releaseTimers</span>[bank][pad] = <span class="name">Timer</span>.<span class="name">scheduledTimer</span>(timeInterval: <span class="name">_fadeOutTimerInterval</span>, 
-            						target: <span class="declaration">self</span>, 
-            						selector: <span class="declaration">#selector</span>(<span class="declaration">self</span>.fadeout(timer:)), 
-            						userInfo: (bank, pad, preFadeVolume, preview), 
-            						repeats: <span class="declaration">true</span>);
+            				target: <span class="declaration">self</span>, 
+            				selector: <span class="declaration">#selector</span>(<span class="declaration">self</span>.fadeout(timer:)), 
+            				userInfo: (bank, pad, preFadeVolume, preview), 
+            				repeats: <span class="declaration">true</span>);
         }
         
         <span class="comment">// Don't forget to invalidate your timers</span>
@@ -222,18 +223,18 @@
             <span class="declaration">let</span> tempPadSampleRate = <span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">file</span>.<span class="type">fileFormat</span>.<span class="type">sampleRate</span>;
             <span class="declaration">let</span> tempFileChannelCount = <span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">file</span>.<span class="type">fileFormat</span>.<span class="type">channelCount</span>;
             
-            <span class="declaration">for</span> i <span class="declaration">in</span> <span class="literal">0</span> ..< (<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">playerNodeArrayCount</span>)!
+            <span class="declaration">for</span> i <span class="declaration">in</span> <span class="literal">0</span> ..< (<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">playerNodesCount</span>)!
             {
                 <span class="comment">// attach and connect varispeed nodes to the pad mixer</span>
-                <span class="name">_engine</span>.<span class="type">attach</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">varispeedNodeArray</span>[i])!);
-                <span class="name">_engine</span>.<span class="type">attach</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">playerNodeArray</span>[i])!);
-                <span class="name">_engine</span>.<span class="type">connect</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">varispeedNodeArray</span>[i])!, 
+                <span class="name">_engine</span>.<span class="type">attach</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">varispeedNodes</span>[i])!);
+                <span class="name">_engine</span>.<span class="type">attach</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">playerNodes</span>[i])!);
+                <span class="name">_engine</span>.<span class="type">connect</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">varispeedNodes</span>[i])!, 
                 		to: <span class="name">_padMixers</span>[bank][pad]!, 
                 		format: <span class="type">AVAudioFormat</span>(standardFormatWithSampleRate: tempPadSampleRate!, 
                 						channels: tempFileChannelCount!));
                 
-                <span class="name">_engine</span>.<span class="type">connect</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">playerNodeArray</span>[i])!, 
-                		to: (<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">varispeedNodeArray</span>[i])!, 
+                <span class="name">_engine</span>.<span class="type">connect</span>((<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">playerNodes</span>[i])!, 
+                		to: (<span class="name">_soundCollection</span>[bank]![pad]?.<span class="name">varispeedNodes</span>[i])!, 
                 		format: <span class="type">AVAudioFormat</span>(standardFormatWithSampleRate: tempPadSampleRate!, 
                 						channels: tempFileChannelCount!));
             }
@@ -254,8 +255,8 @@
 
     <span class="declaration">do</span>
     {
-        <span class="declaration">try</span> <span class="name">_audioSession</span>.<span class="type">setPreferredIOBufferDuration</span>(<span class="literal">0.006</span>); <span class="comment">// 0.006 may not work so well on older devices, 
-        							//works fine on my 6s.</span>
+        <span class="comment">// 0.006 may not work so well on older devices, works fine on my 6s.</span>
+        <span class="declaration">try</span> <span class="name">_audioSession</span>.<span class="type">setPreferredIOBufferDuration</span>(<span class="literal">0.006</span>); 
     }
     <span class="declaration">catch</span>
     {
