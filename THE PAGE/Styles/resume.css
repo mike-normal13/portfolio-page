@@ -1,23 +1,25 @@
+body
+{
+    background-color: rgb(238, 238, 238);
+}
+
+main{
+    padding-left: 21%;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.section-rule{
+    height: 2px;
+    background-color:rgb(66, 66, 66);
+}
+
 /* an aside */
 .left
 {
     width: 20%;
     float: left;
     border-radius: 15px;
-    /*background-color: blue;*/
-    /*background-size: 250% 100%;*/
-    background-image: linear-gradient(to right, darkblue, blue);
-    /*background-image: linear-gradient(to right, blue, lightblue);*/
-    /*background-image: linear-gradient(90deg, blue, white 300px);*/
-    /*background-image: linear-gradient(to right, blue 97%, lightblue 100%);*/
-}
-
-/* a div */
-#right
-{
-    width: 80%;
-    float: right;
-    margin-left: 10px;
+    background-image: linear-gradient(to right, rgb(0, 0, 99), rgb(0, 0, 189));
 }
 
 #name
@@ -35,11 +37,6 @@
 .aside-text
 {
     margin-left: 5px;
-}
-
-.main-text
-{
-    padding-left: 10px;
 }
 
 #info-heading
@@ -67,3 +64,36 @@
 {
     color: lightsteelblue;
 }
+
+.skill-subheading
+{
+    color: white;
+}
+
+.skill-container, .skill-detail, .skill-subheading
+{
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+}
+
+.skill-container
+{
+    background-color: rgb(0, 0, 90);
+    height: 10px;
+}
+
+.skill-line
+{
+    background-color: white;
+    width: 60%;
+    height: 10px;
+}
+
+.skill-detail
+{
+    color: lightgrey;
+    text-align: right;
+    font-size: .80em;
+}
+
