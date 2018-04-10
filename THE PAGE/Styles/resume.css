@@ -4,11 +4,16 @@ body
     width: 8.5in;
     height: 11in;
     margin: 0 auto;  
-    vertical-align: middle;  
 }
 
+#resume-body
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 
-main{
+main
+{
     padding-left: 26%;
     font-family: 'Ubuntu', sans-serif;
 }
@@ -17,7 +22,8 @@ main{
 
 .section-rule{
     height: 2px;
-    background-color:rgb(66, 66, 66);
+    background-color:rgb(0, 0, 0);
+    
 }
 
 /* an aside */
@@ -108,14 +114,19 @@ main{
     margin-bottom: 10px;
 }
 
-.main-section-heading, #degree
+.main-section-heading, #degree, #summary-body
 {
     padding-left: 10px;
 }
 
-.detail{    font-size: 90%; }
+.detail{    font-size: 92%; }
 
 hr
 {
     margin-left: 5px;
+}
+
+.outer-list
+{
+    padding-bottom: 7px;
 }
