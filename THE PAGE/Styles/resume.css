@@ -1,6 +1,6 @@
 body
 {
-    background-color: rgb(238, 238, 238);   
+    background-color: rgb(255, 255, 255);   
     width: 8.5in;
     height: 11in;
     margin: 0 auto;  
@@ -35,7 +35,7 @@ body, .aside-text, .info-heading, .info-subheading, .info-content, .skill-subhea
     width: 25%;
     float: left;
     border-radius: 15px;
-    background-image: linear-gradient(to right, rgb(0, 0, 99), rgb(0, 0, 189));
+    background-image: linear-gradient(to right, rgb(0, 0, 99), rgb(0, 0, 161));
 }
 
 #name
@@ -49,7 +49,7 @@ body, .aside-text, .info-heading, .info-subheading, .info-content, .skill-subhea
 {
     margin-top: 1px;
     margin-bottom: 1px;
-    font-size: 100%;
+    font-size: 110%;
 }
 
 .aside-text
@@ -62,7 +62,7 @@ body, .aside-text, .info-heading, .info-subheading, .info-content, .skill-subhea
 .info-heading
 {
     background-size: 300% 100%;
-    background-image: linear-gradient(to right, rgb(0, 0, 167), white);
+    background-image: linear-gradient(to right, rgb(0, 0, 167), rgb(179, 177, 255));
     color: white;
     padding-left: 5px;
     margin-left: 0px;
@@ -108,6 +108,7 @@ body, .aside-text, .info-heading, .info-subheading, .info-content, .skill-subhea
 {
     background-color: rgb(0, 0, 90);
     height: 10px;
+    border-radius: 5px;
 }
 
 .skill-line
@@ -115,9 +116,17 @@ body, .aside-text, .info-heading, .info-subheading, .info-content, .skill-subhea
     background-color: white;
     height: 10px;
     background-image: linear-gradient(to right, gray, white);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    
 }
 
-.outstanding{   width: 100%;    }
+.outstanding
+{
+       width: 100%;    
+       border-top-right-radius: 5px;
+       border-bottom-right-radius: 5px;
+}
 .excellent{ width: 90%; }
 .proficient{    width: 65%; }
 .basic{ width: 50%; }
