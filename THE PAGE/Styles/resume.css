@@ -145,7 +145,7 @@ body, .aside-text, .info-heading, .info-subheading, .info-content, .skill-subhea
 
 .left-skill-subsection-div
 {
-    padding-bottom: 3px;
+    padding-bottom: 8px;
 }
 
 /* ------------------------- End of left aside styles ---------------------------------- */
@@ -154,6 +154,7 @@ body, .aside-text, .info-heading, .info-subheading, .info-content, .skill-subhea
 {
     margin-top: 10px;
     margin-bottom: 10px;
+    font-size: 170%;
 }
 
 .main-section-heading, #degree, #summary-body, #coursework
