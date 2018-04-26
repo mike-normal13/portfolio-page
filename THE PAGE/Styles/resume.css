@@ -12,10 +12,7 @@ body
     padding-bottom: 5px;
 }
 
-main
-{
-    padding-left: 26%; 
-}
+main{   padding-left: 26%;  }
 
 .section-rule{
     height: 2px;
@@ -49,13 +46,10 @@ body, .aside-text, .info-heading, .info-subheading, .info-content, .skill-subhea
 {
     margin-top: 1px;
     margin-bottom: 1px;
-    font-size: 110%;
+    font-size: 105%;
 }
 
-.aside-text
-{
-    margin-left: 5px;       
-}
+.aside-text{    margin-left: 5px;   }
 
 #my-email{  color:inherit;  }
 
@@ -66,7 +60,7 @@ body, .aside-text, .info-heading, .info-subheading, .info-content, .skill-subhea
     color: white;
     padding-left: 5px;
     margin-left: 0px;
-    padding-top: 3px;
+    padding-top: 2px;
     padding-block-end: 2px;
     font-size: 110%;
 }
@@ -81,10 +75,7 @@ body, .aside-text, .info-heading, .info-subheading, .info-content, .skill-subhea
 
 #desired-position, .info-content{   color: lightsteelblue;  }
 
-.info-content
-{
-    font-size: 85%;
-}
+.info-content{  font-size: 85%; }
 
 .skill-subheading
 {
@@ -92,10 +83,7 @@ body, .aside-text, .info-heading, .info-subheading, .info-content, .skill-subhea
       padding-bottom: 2px;
 }
 
-.info-subheading, .skill-subheading
-{
-    font-size: 95%;
-}
+.info-subheading, .skill-subheading{    font-size: 95%; }
 
 .skill-container, .skill-detail, .skill-subheading
 {
@@ -138,15 +126,9 @@ body, .aside-text, .info-heading, .info-subheading, .info-content, .skill-subhea
     font-size: .90em;
 }
 
-.left-info-subsection-div
-{
-    padding-bottom: 7px;
-}
+.left-info-subsection-div{  padding-bottom: 7px;    }
 
-.left-skill-subsection-div
-{
-    padding-bottom: 8px;
-}
+.left-skill-subsection-div{ padding-bottom: 8px;    }
 
 /* ------------------------- End of left aside styles ---------------------------------- */
 
@@ -157,29 +139,14 @@ body, .aside-text, .info-heading, .info-subheading, .info-content, .skill-subhea
     font-size: 170%;
 }
 
-.main-section-heading, #degree, #summary-body, #coursework
-{
-    padding-left: 10px;
-}
+.main-section-heading, #degree, #summary-body, #coursework{ padding-left: 10px; }
 
-#degree
-{
-    font-size: 108%;
-}
+#degree{    font-size: 108%;    }
 
 .detail{    font-size: 97%; }
 
-hr
-{
-    margin-left: 5px;
-}
+hr{ margin-left: 5px;   }
 
-.outer-list
-{
-    padding-bottom: 8px;
-}
+.outer-list{    padding-bottom: 25px;    }
 
-#coursework
-{
-    font-size: 105%;
-}
+#coursework{    font-size: 105%;    }
